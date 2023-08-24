@@ -4,6 +4,7 @@ import config from "config";
 import morgan from "morgan";
 import { UserManagerDataSource } from "./data/UserManagerDataSource";
 import routes  from "./routes/users";
+import "reflect-metadata";
 
 
 const app: Express = express();
