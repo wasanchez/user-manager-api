@@ -12,7 +12,7 @@
     "admin": "ADMIN"
   },
   "database": {
-    "type": "sqlite3",
-    "db": "./storage/data.db"
+    "dialect": "sqlite3",
+    "db": "./storage/user-manager.db"
   }
 }
