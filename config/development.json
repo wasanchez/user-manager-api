@@ -13,6 +13,6 @@
   },
   "database": {
     "dialect": "sqlite3",
-    "db": "./storage/data.db"
+    "db": "./storage/user-manager.db"
   }
 }

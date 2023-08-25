@@ -1,8 +1,7 @@
 import config from "config";
-import "reflect-metadata"
 import { DataSource } from "typeorm"
-import { User } from "../entities/User"
-
+import { User } from "./entities/User";
+ 
 export class UserManagerDataSource {
   private readonly _appdatasource: DataSource;
 
@@ -12,9 +11,10 @@ export class UserManagerDataSource {
       database: config.get<string>("database.db"),
       //entities: ["/../**/*.{js,ts}"],
       // entities: [__dirname + "/src/entities/*.ts"],
-      entities: [__dirname + "/src/entities/*.ts"],
-      synchronize: false,
+      entities: [User],
+      synchronize: true,
       logging: true,
+  
     });
   }
 
@@ -28,10 +28,8 @@ export class UserManagerDataSource {
     console.log("Initializing data source...");
     this._appdatasource
       .initialize()
-      .then(() => console.info("The data source has been created successfully!"))
-      .catch((error) =>
-        console.error("Unexpected error has occurred.\nError: ", error)
-      );
+      .then(() =>  console.info("The data source has been created successfully!"))
+      .catch((error) => console.error("Unexpected error has occurred.\nError: ", error));
   }
 }
 

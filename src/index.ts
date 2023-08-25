@@ -2,10 +2,9 @@ import http from "http";
 import express, { Express } from "express";
 import config from "config";
 import morgan from "morgan";
-import { UserManagerDataSource } from "./data/UserManagerDataSource";
+import { UserManagerDataSource } from "./UserManagerDataSource";
 import routes  from "./routes/users";
 import "reflect-metadata";
-
 
 const app: Express = express();
 
@@ -44,17 +43,18 @@ app.use((request, response, next) => {
 */
 
 //Routing
-app.use("/user", routes);
+app.use("/api/users", routes);
 
 //Initialize the datasource
 const datasource = new UserManagerDataSource();
 datasource.initilize();
 
+
 /**Starting server */
 const httpServer = http.createServer(app);
 httpServer.listen(port, () => {
   console.log(
-    `The server is running on port ${port} in ${config.util.getEnv(
+    `The server is running on port ${port} in the ${config.util.getEnv(
       "NODE_ENV"
     )} environment.`
   );

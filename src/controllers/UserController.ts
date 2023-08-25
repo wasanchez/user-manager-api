@@ -1,5 +1,5 @@
 
-import {Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from "express";
 import { UserService } from "../services/UserServices";
 import { User } from "../entities/User";
 import { UserDto } from "../common/dtos/UserDto";
@@ -24,6 +24,7 @@ export class UserController {
             });
         })
         .catch((err : any) => {
+            console.error("Error: ", err);
             return response.status(500).json({
                 status: false,
                 error: err
