@@ -1,22 +1,11 @@
 import http from "http";
-import express, { Express } from "express";
 import config from "config";
-import morgan from "morgan";
-import { UserManagerDataSource } from "./UserManagerDataSource";
-import routes  from "./routes/users";
+import application from "./application";
 import "reflect-metadata";
-
-const app: Express = express();
 
 //Gets the server port
 const port: string = process.env.PORT ?? config.get<string>("server.port");
 
-//**Logging */
-app.use(morgan("dev"));
-/** Parse the request */
-app.use(express.urlencoded({ extended: false }));
-//**Take care of JSON data*/
-app.use(express.json());
 
 // app.use((request, response, next) => {
 //   // set the CORS policy
@@ -42,16 +31,8 @@ app.use((request, response, next) => {
 });
 */
 
-//Routing
-app.use("/api/users", routes);
-
-//Initialize the datasource
-const datasource = new UserManagerDataSource();
-datasource.initilize();
-
-
 /**Starting server */
-const httpServer = http.createServer(app);
+const httpServer = http.createServer(application.instance);
 httpServer.listen(port, () => {
   console.log(
     `The server is running on port ${port} in the ${config.util.getEnv(
