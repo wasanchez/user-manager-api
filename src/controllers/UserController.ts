@@ -1,8 +1,8 @@
 
 import { Request, Response, NextFunction } from "express";
-import { UserService } from "../services/userservices";
+import { UserService } from "../services/UserServices";
 import { User } from "../entities/User";
-import { UserDto } from "../common/dtos/userDto";
+import { UserDto } from "../common/dtos/UserDto";
 
 export class UserController {
   private readonly _service: UserService;

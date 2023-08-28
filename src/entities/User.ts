@@ -8,6 +8,7 @@ export class User {
   @Column({
     length: 100,
     nullable: false,
+    unique: true
   })
   username!: string;
 
@@ -20,7 +21,7 @@ export class User {
   })
   email!: string;
 
-  @Column({ length: 20, nullable: false })
+  @Column({ length: 20, nullable: false, })
   role!: string;
 
   @Column({ length: 100, nullable: false })
@@ -44,4 +45,10 @@ export class User {
   @UpdateDateColumn()
   updatedAt!: Date;
 
+}
+
+export enum Role {
+  User = "USER",
+  Customer = "CUSTOMER",
+  Admin = "ADMIN"
 }

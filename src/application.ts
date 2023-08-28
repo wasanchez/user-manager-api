@@ -12,9 +12,13 @@ class Application {
 
     constructor() {
         this._instance = express();
+        this.initialize();
+    }
+
+    private initialize() : void {
         this.use();
-        this.registerRoutes();  
-        this.initilizeDataSource(); 
+        this.registerRoutes();
+        this.initilizeDataSource();
     }
 
     private registerRoutes() : void {
