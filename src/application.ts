@@ -1,6 +1,7 @@
 import express, {Application as ExApplication } from "express";
 import morgan from "morgan";
-import routes  from "./routes/userRoutes";
+import userroutes from "./routes/userRoutes";
+import auturoutes from "./routes/authroutes";
 import AppDataSource from "./datasources/AppDataSource";
 
 class Application {
@@ -22,7 +23,8 @@ class Application {
     }
 
     private registerRoutes() : void {
-        this._instance.use("/api/users", routes);
+        this._instance.use("/api/users", userroutes);
+        this._instance.use("/api/auth", auturoutes);
     }
 
     private use() : void {

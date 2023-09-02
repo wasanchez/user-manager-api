@@ -4,8 +4,13 @@ import crypto from "crypto";
 
 export class SecurityHelper {
 
-    private readonly _jwtSecret: string = config.get<string>("security.jwtSecret");
-    private readonly _jwtExpirationInSeconds: string = config.get<string>("security.jwtExpirationInSeconds");
+    private readonly _jwtSecret: string;
+    private readonly _jwtExpirationInSeconds: string;
+
+    constructor() {
+        this._jwtSecret = config.get<string>("security.jwtSecret");
+        this._jwtExpirationInSeconds = config.get<string>("security.jwtExpirationInSeconds");
+    }
 
     public generateAccessToken (username : string, userId: string) : string 
     {

@@ -34,7 +34,7 @@ export class User {
   birthdate?: Date;
 
   @Column("date")
-  lastLogin!: Date
+  lastLogin?: Date
   
   @Column({name: "active", default: true})
   isActive!: boolean

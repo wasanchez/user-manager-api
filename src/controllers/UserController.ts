@@ -1,6 +1,6 @@
 
 import { Request, Response, NextFunction } from "express";
-import { UserService } from "../services/UserServices";
+import { UserService } from "../services/userservices";
 import { User } from "../entities/User";
 import { UserDto } from "../common/dtos/UserDto";
 
@@ -16,7 +16,7 @@ export class UserController {
 
     this._service.getAllUsers()
         .then((users: User[]) => {
-            Object.assign(users, result);
+            Object.assign(result, users);
 
             return response.status(200).json({
               status: true,
