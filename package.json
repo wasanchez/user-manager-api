@@ -1,7 +1,7 @@
 {
   "name": "user-manager-api",
   "version": "1.0.0",
-  "description": "A user managaer REST API",
+  "description": "An user managaer REST API",
   "main": "src/index.ts",
   "scripts": {
     "dev": "nodemon src/index.ts",
@@ -16,9 +16,11 @@
     "@types/jsonwebtoken": "^9.0.2",
     "@types/morgan": "^1.9.4",
     "ajv": "^8.12.0",
+    "ajv-formats": "^2.1.1",
     "config": "^3.3.9",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.1",
     "morgan": "^1.10.0",
     "nodemon": "^3.0.1",
     "sqlite3": "^5.1.6",

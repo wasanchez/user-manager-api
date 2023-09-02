@@ -5,7 +5,7 @@
   },
   "security": {
     "jwtSecret": "!!CryptoCat@!!",
-    "jwtExpirationInSeconds": 3600
+    "jwtExpirationInSeconds": "1h"
   },
   "roles": {
     "user": "USER",
