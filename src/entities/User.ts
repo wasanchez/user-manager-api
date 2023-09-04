@@ -33,7 +33,7 @@ export class User {
   @Column("date")
   birthdate?: Date;
 
-  @Column("date")
+  @Column({ type:"date", nullable: true})
   lastLogin?: Date
   
   @Column({name: "active", default: true})
