@@ -25,9 +25,12 @@ export class AuthController {
 
             return response.status(201).json({
                status: true,
-               data: newUser,
-               token: accessToken,
+               data: {
+                    user: newUser,
+                    token: accessToken,
+                }
              });
+             
         }).catch((ex) => {
             return response.status(500).json({
               status: false,
