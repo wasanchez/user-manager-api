@@ -1,6 +1,6 @@
 
 import { Repository } from "typeorm";
-import { User } from "../entities/User";
+import { User } from "../entities/user";
 import "reflect-metadata";
 import AppDataSource from "../datasources/AppDataSource";
 
@@ -29,7 +29,7 @@ export class UserService {
                         }else {
                             throw new Error(`User ${newUser.username} already exists.`);
                         }   
-                    }).then( (ex) => {
+                    }).catch( (ex) => {
                         throw ex;
                     });
     }
