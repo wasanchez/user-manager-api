@@ -1,8 +1,8 @@
 
 import { Request, Response, NextFunction } from "express";
-import { UserService } from "../services/userservices";
-import { User } from "../entities/User";
-import { UserDto } from "../common/dtos/UserDto";
+import { UserService } from "../services/userservice";
+import { User } from "../entities/user";
+import { UserDto } from "../common/dtos/userdto";
 
 export class UserController {
   private readonly _service: UserService;
@@ -16,11 +16,11 @@ export class UserController {
 
     this._service.getAllUsers()
         .then((users: User[]) => {
-            Object.assign(result, users);
+            Object.assign<UserDto[], User[]>(result, users);
 
             return response.status(200).json({
               status: true,
-              data: JSON.stringify(result),
+              data: result,
             });
         })
         .catch((err : any) => {
@@ -33,13 +33,14 @@ export class UserController {
   };
 
   public get = (request: Request, response:  Response)  => {
-    const { id } = request.body;
+    const id  = Number.parseInt(request.params["id"]);
+    
     let result = new UserDto();
 
     this._service.getUserById(id)
       .then( (user : User | null) => {
         if (user) {
-          Object.assign(user, result);
+          Object.assign<UserDto, User>(result, user);
 
           return response.status(200).json({
             status: true,

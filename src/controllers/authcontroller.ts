@@ -1,7 +1,7 @@
 import { SecurityHelper } from "../common/helpers/securityhelper";
 import { Request, Response } from "express";
-import { UserService } from "../services/userservices";
-import { Role, User } from "../entities/User";
+import { UserService } from "../services/userservice";
+import { Role, User } from "../entities/user";
 
 export class AuthController {
     private readonly _securityHelper : SecurityHelper;
@@ -19,9 +19,10 @@ export class AuthController {
 
         newUser.password = this._securityHelper.encryptPassword(payload.password);
         newUser.role = newUser.role ?? Role.User;
+       
         this._service.createUser(newUser).then((createdUser) =>
         {
-            const accessToken = this._securityHelper.generateAccessToken(createdUser.username, createdUser.id.toString());
+            let accessToken = this._securityHelper.generateAccessToken(createdUser.username, createdUser.id.toString());
 
             return response.status(201).json({
                status: true,
