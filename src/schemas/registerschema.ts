@@ -1,18 +1,19 @@
 import Ajv, {JSONSchemaType} from "ajv";
 import { Role } from "../entities/User";
 
-interface UserPayload {
-  username: string
-  password: string
-  email: string
-  role?: string
-  lastName: string
-  firstName: string
-  birthdate?: string,
-  isActive?: boolean
+
+interface IUserPayload {
+  username: string;
+  password: string;
+  email: string;
+  role?: string;
+  lastName: string;
+  firstName: string;
+  birthdate?: string;
+  isActive?: boolean;
 }
 
-const UserSchema: JSONSchemaType<UserPayload> = {
+const UserSchema: JSONSchemaType<IUserPayload> = {
   type: "object",
   properties: {
     username: { type: "string", nullable: false },
@@ -28,4 +29,6 @@ const UserSchema: JSONSchemaType<UserPayload> = {
   additionalProperties: false,
 };
 
-export default UserSchema;
+
+
+export default  UserSchema;

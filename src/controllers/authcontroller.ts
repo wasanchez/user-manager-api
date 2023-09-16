@@ -1,7 +1,7 @@
 import { SecurityHelper } from "../common/helpers/securityhelper";
 import { Request, Response } from "express";
 import { UserService } from "../services/userservice";
-import { Role, User } from "../entities/user";
+import { Role, User } from "../entities/User";
 
 export class AuthController {
     private readonly _securityHelper : SecurityHelper;
@@ -38,6 +38,50 @@ export class AuthController {
               data: ex
             });
         });       
+    };
+
+    public login = (request: Request, response: Response) => {
+        const {username, password } = request.body;
+
+        this._service.getUserByUsername(username).then((user) => {
+            if (user == null) {
+                return response.status(404).json({
+                    status: false,
+                    error: {
+                        message: `Could not find any user with username:${username}`
+                    }
+                });
+            }
+
+            const encriptedPassword = this._securityHelper.encryptPassword(password);
+            if (user.password !== encriptedPassword) {
+                return response.status(400).json({
+                    status: false,
+                    error: {
+                        message: "Provided username and password did not mutch"
+                    }
+                });
+            }
+
+            const accessToken = this._securityHelper.generateAccessToken(user.username, user.id.toString());
+
+            return response.status(200).json({
+                status: true,
+                data: {
+                    user: user,
+                    token: accessToken
+                }
+            });
+        })
+        .catch( (ex) => {
+            return response.status(500).json({
+                status: false,
+                error: {
+                    message: "There was an unxpected error",
+                    detail: ex
+                }
+            });
+        });
     };
 
 }

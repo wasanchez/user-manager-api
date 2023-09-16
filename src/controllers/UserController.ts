@@ -1,7 +1,7 @@
 
 import { Request, Response, NextFunction } from "express";
 import { UserService } from "../services/userservice";
-import { User } from "../entities/user";
+import { User } from "../entities/User";
 import { UserDto } from "../common/dtos/userdto";
 
 export class UserController {
