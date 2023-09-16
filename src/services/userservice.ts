@@ -1,6 +1,6 @@
 
 import { Repository } from "typeorm";
-import { User } from "../entities/user";
+import { User } from "../entities/User";
 import "reflect-metadata";
 import AppDataSource from "../datasources/AppDataSource";
 
