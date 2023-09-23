@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from "express";
 import { UserService } from "../services/userservice";
 import { User } from "../entities/User";
 import { UserDto } from "../common/dtos/userdto";
+import { UpdateUserDto} from "../common/dtos/updateuserdto";
 
 export class UserController {
   private readonly _service: UserService;
@@ -60,4 +61,41 @@ export class UserController {
         });
       });
   }
+
+  public updateUserInfo = (request: Request, response: Response) => {
+    const payload = request.body;
+    const id  = Number.parseInt(request.params.id);
+
+    let changes = new UpdateUserDto();
+    Object.assign(changes, payload);
+
+    this._service.getUserById(id).then((user) => {
+      if (user == null) {
+        response.status(404).json({
+          status: false,
+          message: "User not found"
+        });
+      }
+      //update user information
+      this._service.updateUser(id, changes).then((result) => {
+        if (result) {
+          response.status(200).json({
+            status: true,
+            data: result
+          });
+        }
+      }).catch((ex) => {
+        response.status(500).json({
+          status: false,
+          message: `Unexpected error has occurred.\nError: ${ex}`
+        });
+      });
+    });
+  }
+
+  public changePassword = (request: Request, response: Response) => {
+
+
+  }
+
 }

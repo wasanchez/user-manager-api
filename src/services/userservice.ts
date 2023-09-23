@@ -3,6 +3,7 @@ import { Repository } from "typeorm";
 import { User } from "../entities/User";
 import "reflect-metadata";
 import AppDataSource from "../datasources/AppDataSource";
+import { UpdateUserDto } from "../common/dtos/updateuserdto";
 
 export class UserService {
     private readonly _repository: Repository<User>;
@@ -39,7 +40,16 @@ export class UserService {
         return this._repository.findOneBy({ username: username});
     }
 
-    public updateUser(user : User) : Promise<User> {
-        return this._repository.save(user);
+    public updateUser(id: number, user : UpdateUserDto) : Promise<User | null> {
+        return this._repository.update(id, user).then( (result) => {
+            if (result) {
+                return this.getUserById(id);
+            }else {
+                throw new Error("There was a probleme updating data");
+            }
+        }).catch((ex) => {
+            throw new Error("There was unexpected error.\n" + ex.message);
+        });
+        
     }
 }
