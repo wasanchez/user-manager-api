@@ -64,7 +64,7 @@ export class AuthController {
             }
 
             const accessToken = this._securityHelper.generateAccessToken(user.username, user.id.toString());
-
+            this._service.updateLastLogin(user.id);
             return response.status(200).json({
                 status: true,
                 data: {

@@ -52,4 +52,8 @@ export class UserService {
         });
         
     }
+
+    public updateLastLogin(id: number) : void {
+        this._repository.update(id, {lastLogin: new Date()});
+    }
 }
