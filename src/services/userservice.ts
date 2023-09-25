@@ -4,6 +4,7 @@ import { User } from "../entities/User";
 import "reflect-metadata";
 import AppDataSource from "../datasources/AppDataSource";
 import { UpdateUserDto } from "../common/dtos/updateuserdto";
+import { error } from "console";
 
 export class UserService {
     private readonly _repository: Repository<User>;
@@ -55,5 +56,23 @@ export class UserService {
 
     public updateLastLogin(id: number) : void {
         this._repository.update(id, {lastLogin: new Date()});
+    }
+
+    public changePassword(username: string, oldPassword: string, newPassword: string) : Promise<User | null> {
+        return this.getUserByUsername(username).then((user) => {
+                if (user == null) {
+                    throw new Error("User not found.");
+                }
+                
+                if (oldPassword !== user.password) {
+                    throw new Error("The old password provided is not correct.");
+                }
+
+                return this._repository.update(user.id, {password: newPassword }).then((result) => {
+                    return this.getUserById(user.id);
+                });
+        }).catch((ex) => { 
+            throw new Error("There was an error trying to change the password.\n" + ex.message);
+        });
     }
 }

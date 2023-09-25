@@ -84,5 +84,24 @@ export class AuthController {
         });
     };
 
+    public changePassword = (request: Request, response: Response) => {
+        let { username, oldPassword, newPassword } = request.body;
+        
+        newPassword = this._securityHelper.encryptPassword(newPassword);
+        oldPassword = this._securityHelper.encryptPassword(oldPassword);
+
+        this._service.changePassword(username, oldPassword, newPassword).then((user) => {
+            return response.json(200).json({
+                status: true,
+                data: user
+            });
+        }).catch((ex) => {
+            return response.status(400).json({
+                status: false,
+                message: "There was an unxpected error",
+                details: ex
+            });
+        });
+    }
 }
 
