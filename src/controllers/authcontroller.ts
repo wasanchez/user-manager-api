@@ -95,11 +95,14 @@ export class AuthController {
                 status: true,
                 data: user
             });
-        }).catch((ex) => {
+        })
+        .catch( (ex) => {
             return response.status(400).json({
                 status: false,
-                message: "There was an unxpected error",
-                details: ex
+                error: {
+                    message: "There was an error trying to update the password",
+                    detail: ex.message
+                }
             });
         });
     }

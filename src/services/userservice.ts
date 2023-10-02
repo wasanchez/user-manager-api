@@ -71,8 +71,6 @@ export class UserService {
                 return this._repository.update(user.id, {password: newPassword }).then((result) => {
                     return this.getUserById(user.id);
                 });
-        }).catch((ex) => { 
-            throw new Error("There was an error trying to change the password.\n" + ex.message);
         });
     }
 }
