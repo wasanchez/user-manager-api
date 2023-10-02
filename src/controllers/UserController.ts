@@ -93,9 +93,6 @@ export class UserController {
     });
   }
 
-  public changePassword = (request: Request, response: Response) => {
-
-
-  }
+ 
 
 }
